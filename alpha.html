@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+
+<style type="text/css">
+	
+	.root {
+		--element-height: 550px;
+	}
+	
+	input {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+	}
+
+	#my_graph {
+		position: absolute;
+		top: 20px;
+	}
+
+	.sum-info-box {
+		background-color: rgba(0, 0, 0, 0.6);
+		text-align: left;
+		font-family: arial;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		width: 272px;
+		height: 82px;
+		border-radius: 6px;
+		border: none;
+		background:linear-gradient(rgba(0, 0, 0, 0.77) 28px, rgba(0, 0, 0, 0.67));
+	}
+
+	.mouseover-details-box {
+		background-color: rgba(0, 0, 0, 0.6);
+		text-align: left;
+		font-family: arial;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		top: 132px;
+		left: 20px;
+		width: 272px;
+		height: 172px;
+		border-radius: 6px;
+		border: none;
+		background:linear-gradient(rgba(0, 0, 0, 0.67) 50px, rgba(0, 0, 0, 0.55));
+	}
+
+	.siblings_family {
+		background-color: rgba(0, 0, 0, 0.6);
+		position: absolute;
+		text-align: left;
+		font-family: arial;
+		color: white;
+		font-weight: bold;
+		overflow-y: scroll;
+		padding: 9px;
+		position: absolute;
+		top: 334px;
+		left: 20px;
+		width: 272px;
+		height: var(--element-height);
+		border-radius: 6px;
+		border: none;
+		background:linear-gradient(rgba(0, 0, 0, 0.55) 50px, rgba(0, 0, 0, 0.2));
+	}
+
+	::-webkit-scrollbar {
+		width: 14px;
+	}
+
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 5px grey; 
+		border-radius: 6px;
+	}
+	 
+	::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.15);
+		border-radius: 6px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: rgba(0, 0, 0, 0.25);
+	}
+
+	.ion-channel-category-box {
+		background-color: #226588;
+		text-align: center;
+		font-family: arial;
+		font-size: 17px;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		width: 326px;
+		height: 58px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.ion-channel-category-btns {
+		text-align: center;
+		padding: 9px;
+		display: inline-block;
+		position: absolute; 
+		top: 46px;
+		right: 25px;
+	}
+
+	#myform4 {
+		border: 1px dotted #ccc;
+	}
+
+	.all-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: white;
+		color: #226588;
+		width: 35px; 
+		height: 30px;
+		border-radius: 6px;
+		border-color: #2196F3;
+		border: none;
+	}
+
+	.k-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border-color: none;
+		border: none;
+	}
+
+	.na-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 39px; 
+		height: 30px;
+		border-radius: 6px;
+		border-color: none;
+		border: none;
+	}
+
+	.ca-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 39px; 
+		height: 30px;
+		border-radius: 6px;
+		border-color: none;
+		border: none;
+	}
+
+	.ih-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.kca-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 53px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.other-button {
+		font-size: 18px;
+		font-weight: bold;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 63px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.all-button:hover, .k-button:hover, .na-button:hover, .ca-button:hover, .ih-button:hover, .kca-button:hover, .other-button:hover {background: #A9A9A9;}
+	.all-button:hover:after, .k-button:hover:after, .na-button:hover:after, .ca-button:hover:after, .ih-button:hover:after, .kca-button:hover:after, .other-button:hover:after {background: #A9A9A9;}
+
+	.sm1-box, .sm2-box, .icg-box {
+		text-align: center;
+		font-family: arial;
+		font-size: 17px;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		right: 20px;
+		width: 141px;
+		height: 60px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.sm1-box{
+		background-color: #3B9F71;
+		top: 108px;
+	}
+
+	.sm2-box {
+		background-color: #3B9F71;
+		top: 198px;
+	}
+
+	.icg-box {
+		background-color: #FECB2E;
+		top: 288px;
+	}
+
+	#cmn-toggle-sm1 + label{
+		top: 144px;
+	}
+
+	#cmn-toggle-sm2 + label{
+		top: 234px;
+	}
+
+	#cmn-toggle-icg + label{
+		top: 324px;
+	}
+
+	.cmn-toggle-round + label {
+		padding: 2px;
+		position: absolute;
+		right: 54px;
+		width: 84px;
+		height: 28px;
+		background-color: #dddddd;
+		border-radius: 60px;
+	}
+	
+	.cmn-toggle-round + label:before,
+	.cmn-toggle-round + label:after {
+		display: block;
+		position: absolute;
+		top: 1px;
+		left: 1px;
+		bottom: 1px;
+		content: "";
+	}
+
+	.cmn-toggle-round + label:before {
+		right: 1px;
+		background-color: #f1f1f1;
+		border-radius: 60px;
+		transition: background 0.4s;
+	}
+
+	.cmn-toggle-round + label:after {
+		width: 28px;
+		background-color: #fff;
+		border-radius: 100%;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+		transition: margin 0.4s;
+	}
+
+	#cmn-toggle-sm1:checked + label:before, #cmn-toggle-sm2:checked + label:before {
+		background-color: #8ce196;
+	}
+	
+	#cmn-toggle-icg:checked + label:before {
+		background-color: #FFFF64;
+	}
+	
+	.cmn-toggle-round:checked + label:after {
+		margin-left: 58px;
+	}
+
+	input[type="checkbox"]{
+		position: absolute;
+		visibility: hidden;
+	}
+
+	.parent-cp-num-box {
+		background-color: #FFA500;
+		text-align: center;
+		font-family: arial;
+		font-size: 16px;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		top: 378px;
+		right: 19px;
+		width: 141px;
+		height: 60px;
+		border-radius: 6px;
+		border: none;
+	}
+	
+	.parent-minus-plus {
+		text-align: center;
+		padding: 9px;
+		display: inline-block;
+		position: absolute; 
+		top: 406px;
+		right: 32px;
+	}
+
+	#myform1 {
+		border: 1px dotted #ccc;
+	}
+
+	.qty1 {
+		font-size: 17px;
+		text-align: center;
+		vertical-align: middle;
+		color: #696969;
+		width: 33px;
+		height: 27.675px;
+		border-radius: 6px;
+		border: none;
+		margin-right: 5;
+	}
+
+	.qtyplus1 {
+		font-size: 20px;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+		margin-left: 5px;
+		
+	}
+
+	.qtyminus1 { 
+		font-size: 20px;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+		margin-right: 5px;
+	}
+
+	.qtyplus1:hover, .qtyminus1:hover {background: #A9A9A9;}
+	.qtyplus1:hover:after, .qtyminus1:hover:after {background: #A9A9A9;}
+
+	.children-cp-num-box {
+		background-color: #00BFFF;
+		text-align: center;
+		font-family: arial;
+		font-size: 16px;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		top: 468px;
+		right: 19px;
+		width: 141px;
+		height: 60px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.children-minus-plus {
+		text-align: center;
+		padding: 9px;
+		display: inline-block;
+		position: absolute; 
+		top: 496px;
+		right: 32px;
+	}
+
+	#myform2 {
+		border: 1px dotted #ccc;
+	}
+	.qty2 {
+		font-size: 17px;
+		text-align: center;
+		vertical-align: middle;
+		color: #696969;
+		width: 33px;
+		height: 27.675px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.qtyplus2 {
+		font-size: 20px;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+		margin-left: 5px;
+	}
+
+	.qtyminus2 { 
+		font-size: 20px;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+		margin-right: 5px;
+	}
+
+	.qtyplus2:hover, .qtyminus2:hover {background: #A9A9A9;}
+	.qtyplus2:hover:after, .qtyminus2:hover:after {background: #A9A9A9;}
+
+	.similarity-score-box {
+		background-color: #226588;
+		text-align: center;
+		font-family: arial;
+		font-size: 16px;
+		color: white;
+		font-weight: bold;
+		padding: 9px;
+		position: absolute;
+		top: 558px;
+		right: 19px;
+		width: 141px;
+		height: 60px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.similarity-score-minus-plus {
+		text-align: center;
+		padding: 9px;
+		display: inline-block;
+		position: absolute; 
+		top: 586px;
+		right: 32px;
+	}
+
+	#myform3 {
+		border: 1px dotted #ccc;
+	}
+	.qty3 {
+		font-size: 17px;
+		text-align: center;
+		vertical-align: middle;
+		color: #696969;
+		width: 33px;
+		height: 27.675px;
+		border-radius: 6px;
+		border: none;
+	}
+
+	.qtyplus3 {
+		font-size: 20px;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+		margin-left: 5px;
+		
+	}
+
+	.qtyminus3 { 
+		font-size: 20px;
+		vertical-align: middle;
+		background-color: #CDCDCD;
+		color: white;
+		width: 31px; 
+		height: 30px;
+		border-radius: 6px;
+		border: none;
+		margin-right: 5px;
+	}
+
+	.d3-tip {
+		line-height: 1.5;
+		font-weight: 400;
+		font-family:"avenir next", Arial, sans-serif;
+		padding: 6px;
+		background: rgba(0, 0, 0, 0.6);
+		color: #FFA500;
+		position: absolute;
+		top: 500px;
+		left: 20px;
+		border-radius: 1px;
+		pointer-events: none;
+	}
+
+	.d3-tip:after {      
+		box-sizing: border-box;
+		display: inline;
+		font-size: 8px;
+		width: 100%;
+		line-height: 1.5;
+		color: rgba(0, 0, 0, 0.6);
+		position: absolute;
+		top: 500px;
+		left: 20px;
+		pointer-events: none;
+		
+	}
+
+	.d3-tip.n:after {
+		content: "\25BC";
+		margin: -1px 0 0 0;
+		top: 100%;
+		left: 0;
+		text-align: center;
+		position: absolute;
+		top: 500px;
+		left: 20px;
+	}
+
+	/*  text{
+		pointer-events:none;
+	}*/
+
+	.details{
+		color:white;
+	}
+
+</style>
+
+
+	<title>Interactive Ion Channel Model Graph</title>
+
+	<svg id="my_graph" width="1800" height="1000"></svg>
+	
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="boxed sum-info-box">
+	<span style="color: #ffb700; font-size: 1.18em;">Summary</span><br>
+	<span style="color: #ffb700; line-height: 40px;">Parent nodes & copies: </span><span id="parent-node-and-copies-number" style="line-height: 40px;"></span><br>
+	<span style="color: #ffb700;">Children nodes & copies: </span><span id="children-node-and-copies-number"></span>
+</div>
+
+<div class="boxed mouseover-details-box" id="mouseover-details-box"><span style="color: #ffb700; font-size: 1.18em;">Details</span><br></div>
+<div class="boxed siblings_family" id="siblings_family"></div>
+
+<div class="scrollbar" id="style-2">
+	<div class="force-overflow"></div>
+</div>
+
+<div class="boxed ion-channel-category-box">Ion Channel Class</div>
+
+<form class='ion-channel-category-btns' method='POST' action='#'>
+
+	<input type='button' class='all-button' value='All'/>
+	<input type='button' class='k-button' value='K'/>
+	<input type='button' class='na-button' value='Na'/>
+	<input type='button' class='ca-button' value='Ca'/>
+	<input type='button' class='ih-button' value='Ih'/>
+	<input type='button' class='kca-button' value='KCa'/>
+	<input type='button' class='other-button' value='Other'/>
+	
+</form>
+
+<div id="sm-icg-toggle-container">
+
+	<div class="boxed sm1-box">Supermodel 1</div>
+	<div class="boxed sm2-box">Supermodel 2</div>
+	<div class="boxed icg-box">ICG entry</div>
+
+</div>
+
+<div class="switch">
+	<input id="cmn-toggle-sm1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+	<label for="cmn-toggle-sm1"></label>
+	<input id="cmn-toggle-sm2" class="cmn-toggle cmn-toggle-round" type="checkbox">
+	<label for="cmn-toggle-sm2"></label>
+	<input id="cmn-toggle-icg" class="cmn-toggle cmn-toggle-round" type="checkbox">
+	<label for="cmn-toggle-icg"></label>
+</div>
+
+<div class="boxed parent-cp-num-box"># parent</div>
+
+<form class='parent-minus-plus'>
+
+	<input type='button' value='–' class='qtyminus1' field='quantity1'/>
+	<input type='text' name='quantity1' value='1' class='qty1'/>
+	<input type='button' value='+' class='qtyplus1' field='quantity1'/>
+
+</form>
+
+<div class="boxed children-cp-num-box"># children</div>
+
+<form class='children-minus-plus' method='POST' action='#'>
+
+	<input type='button' value='–' class='qtyminus2' field='quantity2'/>
+	<input type='text' name='quantity2' value='1' class='qty2'/>
+	<input type='button' value='+' class='qtyplus2' field='quantity2'/>
+
+</form>
+
+<div class="boxed similarity-score-box">similarity score</div>
+<form class='similarity-score-minus-plus' method='POST' action='#'>
+
+	<input type='button' value='–' class='qtyminus3' field='quantity3'/>
+	<input type='text' name='quantity3' value='95' class='qty3'/>
+	<input type='button' value='+' class='qtyplus3' field='quantity3'/>
+
+</form>
+
+<script type="text/javascript" src="helper_functions.js"></script>
+
+<script>
+
+var drag_handler = d3.drag()
+	.on("start", dragStarted)
+	.on("drag", dragging)
+	.on("end", dragEnded);
+
+var zoom_handler = d3.zoom()
+	.scaleExtent([ 0.7, 4.0 ])
+	.on("zoom", zoom_actions);
+
+var which_button, my_val, button_status ;
+
+var filter_name_dict = {
+		"all-button" : "All" ,
+		"k-button" : "K" ,
+		"na-button" : "Na" ,
+		"ca-button" : "Ca" ,
+		"ih-button" : "Ih" ,
+		"kca-button" : "KCa" ,
+		"other-button" : "Other" ,
+		"cmn-toggle-sm1" : "Supermodel 1" ,
+		"cmn-toggle-sm2" : "Supermodel 2" ,
+		"cmn-toggle-icg" : "ICG entry" ,
+		"qtyminus1" : "# parents" ,
+		"qtyplus1" : "# parents" ,
+		"qty1" : "# parents" ,
+		"qtyminus2" : "# children" ,
+		"qtyplus2" : "# children" ,
+		"qty2" : "# children" ,
+		"qtyminus3" : "similarity score" ,
+		"qtyplus3" : "similarity score" ,
+		"qty3" : "similarity score" ,
+	};
+
+var filter_value_dict = {
+	"All" : true ,
+	"K" : false ,
+	"Na" : false ,
+	"Ca" : false ,
+	"Ih" : false ,
+	"KCa" : false ,
+	"Other" : false ,
+	"Supermodel 1" : false ,
+	"Supermodel 2" : false ,
+	"ICG entry" : false ,
+	"# parents" : 1 ,
+	"# children" : 1 ,
+	"similarity score" : 95 ,
+};
+
+var btn_status_dict = {
+			"All" : 0 ,
+			"K" : 1 ,
+			"Na" : 1 ,
+			"Ca" : 1 ,
+			"Ih" : 1 ,
+			"KCa" : 1 ,
+			"Other" : 1 ,
+	};
+	
+var pncn, cncn ;
+
+d3.json("network_data.json", function(graph){
+
+	d3.selectAll(".all-button,.k-button,.na-button,.ca-button,.ih-button,.kca-button,.other-button,#cmn-toggle-sm1,#cmn-toggle-sm2,#cmn-toggle-icg,.qtyminus1,.qtyplus1,.qtyminus2,.qtyplus2,.qtyminus3,.qtyplus3").on("click", function(d){
+	
+		my_val = $(this).attr('class');
+		if (my_val == 'cmn-toggle cmn-toggle-round'){
+			my_val= $(this).attr('id');
+		}
+	
+		my_val=filter_name_dict[my_val];
+	
+		if (['All','K','Na','Ca','Ih','KCa','Other'].includes(my_val)){
+		
+			button_status = btn_status_dict[my_val] ;
+			button_status ++;
+			btn_status_dict[my_val]=button_status
+			
+			if (button_status % 2 == 0){
+				d3.select(this).transition()
+					.duration(170)
+					.style('background-color',"white")
+					.style('color',"#226588");
+			} else {
+				d3.select(this).transition()
+					.duration(170)
+					.style('background-color','#CDCDCD')
+					.style('color',"white");
+			}
+	
+			if (my_val=='All') {
+			
+				['K','Na','Ca','Ih','KCa','Other'].forEach( function(d) {
+				
+					button_status = btn_status_dict[d] ;
+				
+					if (button_status % 2 == 0){
+			
+						d3.select(getKeyByValue(filter_name_dict,d)).transition()
+							.duration(170)
+							.style('background-color','#CDCDCD')
+							.style('color',"white");
+						
+						button_status ++;
+						btn_status_dict[d] = button_status;
+						
+					}
+					
+				});
+				
+			} else {
+			
+			
+				if (btn_status_dict['All'] % 2 == 0){
+			
+					var at_least_one_status = false ;
+								
+					['K','Na','Ca','Ih','KCa','Other'].forEach( function(d) {
+						if (btn_status_dict[d] % 2 == 0){
+							at_least_one_status=true;
+						}
+					});
+								
+					  if (at_least_one_status){
+						d3.select(".all-button").transition()
+							.duration(170)
+							.style('background-color','#CDCDCD')
+							.style('color',"white");
+						
+						button_status = btn_status_dict['All'] ;
+						button_status ++;
+						btn_status_dict['All'] = button_status;
+					}
+				
+				}
+	
+			}
+	
+			d3.selectAll(".all-button,.k-button,.na-button,.ca-button,.ih-button,.kca-button,.other-button").each(function() {
+				which_button=filter_name_dict[$(this).attr("class")];
+				my_val=btn_status_dict[which_button];
+				if (my_val % 2 == 0){
+					filter_value_dict[which_button]=true;
+				} else {
+					filter_value_dict[which_button]=false;
+				}
+			});
+	
+		} else if (['Supermodel 1','Supermodel 2','ICG entry'].includes(my_val)){
+	
+			d3.selectAll("#cmn-toggle-sm1,#cmn-toggle-sm2,#cmn-toggle-icg").each(function() {
+				which_button=filter_name_dict[$(this).attr("id")];
+				filter_value_dict[which_button]=$(this).is(':checked');
+			});
+	
+		} else if (['# parents','# children','similarity score'].includes(my_val)){
+	
+			d3.selectAll(".qty1,.qty2,.qty3").each(function() {
+				which_button=filter_name_dict[$(this).attr("class")];
+				my_val=$(this).val();
+				filter_value_dict[which_button]=my_val;
+			});
+			
+		}
+
+		if (typeof simulation !== 'undefined') {
+			simulation.stop();
+			restart = true ;
+		} else {
+			restart = false ;
+		}
+
+		var which_ion_channel_class_buttons_are_active=['K','Na','Ca','Ih','KCa','Other'].filter(function(d) {
+				if (filter_value_dict[d]==true) {return true;} else {return false;} 
+			});
+			
+		var nodes_data = graph.nodes.filter(function(d) { return filter_nodes(which_ion_channel_class_buttons_are_active,d) ; }) ;
+		var nodes_id = nodes_data.map(function(d) { return d.id ; }) ;
+			
+		var links_data = graph.links.filter( function(d) {
+			if (typeof d.source.id !== 'undefined') {
+				return (nodes_id.includes(d.source.id) && nodes_id.includes(d.target.id)) ; 
+			} else {
+				return (nodes_id.includes(d.source) && nodes_id.includes(d.target)) ; 
+			}
+		});
+
+		link_force =  d3.forceLink(links_data)
+			.distance((function(d) { 
+				if (d.target.type=="parent"){
+					return 5;
+				}else{
+					return Math.pow(d.target.diff,1.5)/1.625;
+				}
+			}))
+			.id(function(d) { return d.id; });
+				 
+		charge_force = d3.forceManyBody()
+			.strength(function(d) { 
+				if (d.type=="parent"){
+					return -Math.pow(d.num_of_siblings,1.125)-10.575;
+				}else{
+					return -Math.pow(d.num_of_siblings,1.1275)-11.5;
+				}
+			});
+
+		center_force = d3.forceCenter((width + 100) / 2, height / 2);
+
+		drag_handler = d3.drag()
+			.on("start", dragStarted)
+			.on("drag", dragging)
+			.on("end", dragEnded);
+
+		zoom_handler = d3.zoom()
+			.scaleExtent([ 0.7, 4.0 ])
+			.on("zoom", zoom_actions);
+
+		pncn=0;
+		for(var x in nodes_data) {
+			if (nodes_data[x].type=='parent'){
+				pncn=pncn+nodes_data[x].num_of_siblings;
+			}
+		}
+	
+		cncn=0;
+		for(var x in nodes_data) {
+			if (nodes_data[x].type=='child'){
+				cncn=cncn+nodes_data[x].num_of_siblings;
+			}
+		}
+
+		d3.select("#parent-node-and-copies-number")
+			.style("color","white")
+			.html(pncn);
+	
+		d3.select("#children-node-and-copies-number")
+			.style("color","white")
+			.html(cncn);
+
+		try {
+			d3.selectAll('g').remove();
+		} catch {}
+		
+		g = svg.append("g").attr("class", "everything");
+
+		link = g.append("g")
+			.attr("class", "links")
+			.selectAll("line")
+			.data(links_data)
+			.enter()
+			.append("line")
+			.attr("stroke-width", (function(d) {return d.weight/1.2}))
+			.style("stroke", "#aaa");
+
+		link
+			.exit()
+			.remove();
+	
+		node = g.append("g")
+			.attr("class", "nodes")
+			.selectAll("circle")
+			.data(nodes_data)
+			.enter()
+			.append("circle")
+			.attr("r", function(d) {
+				if (d.type=="parent"){
+					return 0.2375*Math.log(d.num_of_siblings)/Math.log(1.09)+1.325;
+				}else{
+					return 0.3925*Math.log(d.num_of_siblings)/Math.log(1.35)+3;
+				}	
+			})
+			.attr("fill", circleColour)
+			.style("stroke", "#aaa");
+
+		node
+			.exit()
+			.remove();
+
+		d3.selectAll("circle")
+			.on("mouseover", function(d){
+
+				var str = "<span style=\"color: #ffb700; font-size: 1.18em;\">Details</span><br>" ;
+
+				if (d.type == "parent") {
+
+					str = str + "<span style=\"color: #ffb700; line-height: 40px;\">ICG id: <\/span>" + d.id + "<br>"
+						+ "<span style=\"color: #ffb700; line-height: 40px;\">Self + siblings: <\/span>" + d.num_of_siblings + "<br>"
+						+ "<span style=\"color: #ffb700; line-height: 40px;\">Original cousins: <\/span>" + d.num_of_original_cousins + "<br>"
+						+ "<span style=\"color: #ffb700; line-height: 40px;\">All cousins: <\/span>" + d.num_of_all_cousins;
+
+				} else {
+
+					str = str +  "<span style=\"color: #ffb700; line-height: 40px;\">ICG id: </span>" + d.id + "<br>"
+						+ "<span style=\"color: #ffb700; line-height: 40px;\">Self + siblings: </span>" + d.num_of_siblings + "<br>"
+						+ "<span style=\"color: #ffb700; line-height: 40px;\">Similarity score: </span>" + d.similarity_score + "<br>"
+						+ "<span style=\"color: #ffb700; line-height: 40px;\">Parent: </span>" + d.parent ;
+				}
+
+				d3.select("#mouseover-details-box")
+					.html(str);
+
+				str="";
+				d.siblings_family.forEach(function(x){
+						str = str + "<span style=\"line-height: 26px\">" + x + "<span><br>" ;
+				});
+
+				d3.select('#siblings_family')
+					.html(str);
+
+		})
+		.on("mouseout", function(d){});
+
+		simulation = d3.forceSimulation()
+				.nodes(nodes_data)
+				.force("charge", charge_force)
+				.force("center", center_force)
+				.force("links",link_force)
+				.force("x", d3.forceX((width + 100) / 2))
+				.force("y", d3.forceY(height / 2))
+				.on("tick", tickActions);
+
+		if (restart) {
+			simulation.alpha(0.875).alphaTarget(0.125).restart();
+		}
+
+		drag_handler(node);
+		zoom_handler(svg);
+
+		function tickActions() {
+
+			node
+				.attr("cx", function(d) { return d.x = Math.max(radius, Math.min(width - 0.05*width - radius, d.x)); })
+				.attr("cy", function(d) { return d.y = Math.max(radius, Math.min(height - 10 - radius, d.y)); });
+				
+			link
+				.attr("x1", function(d) { return d.source.x; })
+				.attr("y1", function(d) { return d.source.y; })
+				.attr("x2", function(d) { return d.target.x; })
+				.attr("y2", function(d) { return d.target.y; });
+		}
+
+	});
+
+});
+
+function filter_nodes(which_ion_channel_class_buttons_are_active,d){
+
+	var status = true ;
+	
+	if (d.type=="parent" && d.num_of_siblings<filter_value_dict['# parents']) {status=false;}
+	if (d.type=="child" && d.num_of_siblings<filter_value_dict['# children']) {status=false;}
+	if (d.type=="child" && d.similarity_score<filter_value_dict['similarity score']) {
+		status=false;
+	}
+	if (filter_value_dict['Supermodel 1']) {
+		if (!d.sm1){status=false;}
+	}
+	if (filter_value_dict['Supermodel 2']) {
+		if (!d.sm2){status=false;}
+	}
+	if (filter_value_dict['ICG entry']) {
+		if (!d.icg_entry){status=false;}
+	}
+	if (!filter_value_dict['All']){
+		if (!which_ion_channel_class_buttons_are_active.includes(d.ion_channel_class)){status=false;}
+	}
+
+	return status ;
+
+}
+
+/** Functions **/
+
+//Function to choose what color circle we have
+//Let's return blue for males and red for females
+function circleColour(d){
+	if (d.type == "parent") {
+		return '#FFA500';
+	} else {
+		return '#00BFFF';
+	}
+}
+
+//Function to choose the line colour and thickness 
+//If the link type is "A" return green 
+//If the link type is "E" return red 
+function linkColour(d){
+	return "green";
+}
+
+//Drag functions 
+//d is the node 
+function dragStarted(d) {
+if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+	d.fx = d.x;
+	d.fy = d.y;
+}
+
+//make sure you can't drag the circle outside the box
+function dragging(d) {
+	d.fx = d3.event.x;
+	d.fy = d3.event.y;
+}
+
+function dragEnded(d) {
+	if (!d3.event.active) simulation.alphaTarget(0);
+	d.fx = null;
+	d.fy = null;
+}
+
+//Zoom functions 
+function zoom_actions(){
+	g.attr("transform", d3.event.transform)
+}
+
+function getKeyByValue(object, value) {
+	return "."+Object.keys(object).find(key => object[key] === value);
+}
+
+
+</script>
+
+</body>
